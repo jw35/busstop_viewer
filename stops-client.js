@@ -22,110 +22,107 @@ $(document).ready(function () {
         joiner = L.layerGroup(),
         map = L.map('map');
 
-
-    /*
-        var limit_warning = L.control({position: 'topright'});
-        limit_warning.onAdd = function () {
-            var div = L.DomUtil.create('div', 'info warning');
-            div.innerHTML = '<b>Too many points</b> - zoom in or filter';
-            return div;
-        };
-    */
-
     /*
 
-    {
-      "0500CCITY055": {
-        "administrativeareacode": "071",
-        "altdescriptors": [
-          {
-            "commonname": "Churchill College",
-            "commonnamelang": "en",
-            "creationdatetime": "2006-05-19 00:00:00+01",
-            "crossing": "",
-            "crossinglang": "",
-            "indicator": "",
-            "indicatorlang": "",
-            "landmark": "",
-            "landmarklang": "",
-            "modification": "new",
-            "modificationdatetime": "2007-03-12 00:00:00+00",
-            "revisionnumber": "",
-            "shortcommonnamelang": "",
-            "shortname": "",
-            "street": "",
-            "streetlang": ""
-          }
-        ],
-        "atcocode": "0500CCITY055",
-        "bearing": "E",
-        "busstoptype": "MKD",
-        "cleardowncode": null,
-        "commonname": "Storey's Way",
-        "commonnamelang": "en",
-        "creationdatetime": "Sat, 01 Nov 2003 00:00:00 GMT",
-        "crossing": null,
-        "crossinglang": null,
-        "defaultwaittime": null,
-        "easting": 543908,
-        "grandparentlocalityname": null,
-        "gridtype": "U",
-        "indicator": "near",
-        "indicatorlang": "en",
-        "landmark": "Churchill College",
-        "landmarklang": "en",
-        "latitude": 52.2114061236,
-        "localitycentre": "0",
-        "localityname": "Cambridge",
-        "longitude": 0.10481260687,
-        "modification": "rev",
-        "modificationdatetime": "Wed, 02 Apr 2008 00:00:00 GMT",
-        "naptancode": "CMBDAGAP",
-        "northing": 259108,
-        "notes": null,
-        "noteslang": null,
-        "nptglocalitycode": "E0055326",
-        "parentlocalityname": null,
-        "pbcreationdatetime": "Sat, 01 Nov 2003 00:00:00 GMT",
-        "pbmodification": "rev",
-        "pbmodificationdatetime": "Wed, 02 Apr 2008 00:00:00 GMT",
-        "platecode": null,
-        "plusbuszonecode": "CAMBDGE",
-        "revisionnumber": 3,
-        "shortcommonname": "Storey's Way",
-        "shortcommonnamelang": "en",
-        "status": "act",
-        "stopareacodes": [
-          "050GCC054055"
-        ],
-        "stoptype": "BCT",
-        "street": "Madingley Road",
-        "streetlang": "en",
-        "suburb": null,
-        "suburblang": null,
-        "timingstatus": "TIP",
-        "town": null,
-        "townlang": null
-      }
+    [
+      {
+          "rowid": 18571,
+          "ATCOCode": "049004935146",
+          "NaptanCode": "mltagadw",
+          "PlateCode": null,
+          "CleardownCode": null,
+          "CommonName": "Stadium MK",
+          "CommonNameLang": null,
+          "ShortCommonName": null,
+          "ShortCommonNameLang": null,
+          "Landmark": "MK Dons stadium",
+          "LandmarkLang": null,
+          "Street": "Grafton Street",
+          "StreetLang": null,
+          "Crossing": null,
+          "CrossingLang": null,
+          "Indicator": "E-bound",
+          "IndicatorLang": null,
+          "Bearing": "E",
+          "NptgLocalityCode": "N0064991",
+          "LocalityName": "Denbigh North",
+          "ParentLocalityName": "Bletchley",
+          "GrandParentLocalityName": "Milton Keynes",
+          "Town": "Milton Keynes",
+          "TownLang": null,
+          "Suburb": "Denbigh north",
+          "SuburbLang": null,
+          "LocalityCentre": 0,
+          "GridType": "U",
+          "Easting": 486875,
+          "Northing": 235297,
+          "Longitude": -0.7356934795000001,
+          "Latitude": 52.0093180602,
+          "StopType": "BCT",
+          "BusStopType": "CUS",
+          "TimingStatus": "OTH",
+          "DefaultWaitTime": null,
+          "Notes": null,
+          "NotesLang": null,
+          "AdministrativeAreaCode": 32,
+          "CreationDateTime": "2007-11-26T09:55:00",
+          "ModificationDateTime": "2015-06-16T16:13:00",
+          "RevisionNumber": 5,
+          "Modification": "del",
+          "Status": "del"
+        }
+        ...
     }
 
     */
 
-    function load_naptan_busstops() {
+
+    function load_naptan_busstops(new_stops, token) {
 
         console.log('Running load_naptan_busstops');
-        $.ajax({
-            url: 'http://127.0.0.1:5000/stops?bbox=-0.755235,52.0085564,0.63038,52.8346291&limit=1000000&key=E44C5B4E-D3ED-4A5B-AC40-16C8EF53F195'
-        }).done(
+
+        if (!new_stops) {
+            new_stops = [];
+        }
+
+        var query = 'select rowid, * from Stops where Longitude > -0.755235 and Latitude > 52.0085564 ' +
+                'and Longitude < 0.63038 and Latitude < 52.8346291';
+        if (token) {
+            query += ' and rowid > ' + token;
+        }
+        query += ' order by rowid';
+
+        console.log('Query: ' + query);
+
+        var url = 'https://naptan.herokuapp.com/naptan.json?' +
+            'sql=' + encodeURIComponent(query) +
+            '&_shape=array';
+
+        console.log('Url: ' + url);
+
+        $.ajax({url: url}
+        ).done(
             function (data) {
-                //console.log(data);
-                naptan_data = data;
-                if (osm_data) {
-                    console.log('Loaded NaPTAN, have OSM');
-                    display_stops();
+                console.log(data);
+                console.log('Got ' + data.length + ' stops');
+                // If we got some data, keep going
+                if (data.length) {
+                    console.log('Got stops');
+                    new_stops = new_stops.concat(data);
+                    var last = data[data.length - 1];
+                    load_naptan_busstops(new_stops, last.rowid);
                 }
+                // Otherwise we are dome
                 else {
-                    console.log('Loaded NaPTAN, no OSM yet');
+                    console.log('No more stops');
+                    naptan_data = new_stops;
+                    if (osm_data) {
+                        console.log('Loaded NaPTAN, have OSM');
+                        display_stops();
+                    }
+                    else {
+                        console.log('Loaded NaPTAN, no OSM yet');
+                    }
                 }
             }
         ).fail(
@@ -504,31 +501,32 @@ $(document).ready(function () {
 
         // Stops in NaPTAN
         for (var id in naptan_data) {
-            stop = naptan_data[id];
-            //if (stop.status === 'act' &&
-            //   (stop.stoptype === 'BCT' || stop.stoptype == 'BCS' || stop.stoptype == 'BCQ' ||
-            //       stop.stoptype == 'BST' || stop.stoptype == 'BCE' || stop.stoptype == 'BCP')) {
+            if (naptan_data.hasOwnProperty('id')) {
+                stop = naptan_data[id];
+                //if (stop.status === 'act' &&
+                //   (stop.stoptype === 'BCT' || stop.stoptype == 'BCS' || stop.stoptype == 'BCQ' ||
+                //       stop.stoptype == 'BST' || stop.stoptype == 'BCE' || stop.stoptype == 'BCP')) {
 
-            marker = L.circleMarker([stop.latitude, stop.longitude], naptan_marker_opts)
-                .bindPopup(naptan_stop_as_text(stop));
+                marker = L.circleMarker([stop.latitude, stop.longitude], naptan_marker_opts)
+                    .bindPopup(naptan_stop_as_text(stop));
 
-            // Inactive or 'wrong type' stops
-            if (stop.status !== 'act' ||
-                (stop.stoptype !== 'BCT' && stop.stoptype !== 'BCS' && stop.stoptype !== 'BCQ' &&
-                 stop.stoptype !== 'BST' && stop.stoptype !== 'BCE' && stop.stoptype !== 'BCP')) {
-                marker.setStyle({color: 'black'})
-                    .addTo(naptan_not_a_bus_stop);
+                // Inactive or 'wrong type' stops
+                if (stop.status !== 'act' ||
+                    (stop.stoptype !== 'BCT' && stop.stoptype !== 'BCS' && stop.stoptype !== 'BCQ' &&
+                     stop.stoptype !== 'BST' && stop.stoptype !== 'BCE' && stop.stoptype !== 'BCP')) {
+                    marker.setStyle({color: 'black'})
+                        .addTo(naptan_not_a_bus_stop);
+                }
+                // Stops with an AtcoCode match in OSM
+                else if (osm_atco_index.indexOf(stop.atcocode) !== -1) {
+                    marker.setStyle({color: 'green'})
+                        .addTo(naptan_matched);
+                }
+                // Everything else
+                else {
+                    marker.addTo(naptan_notmatched);
+                }
             }
-            // Stops with an AtcoCode match in OSM
-            else if (osm_atco_index.indexOf(stop.atcocode) !== -1) {
-                marker.setStyle({color: 'green'})
-                    .addTo(naptan_matched);
-            }
-            // Everything else
-            else {
-                marker.addTo(naptan_notmatched);
-            }
-
         }
 
         // Stops in OSM
@@ -551,7 +549,7 @@ $(document).ready(function () {
                         .addTo(osm_matched);
                     L.polyline([[stop.lat, stop.lon],
                         [naptan_stop.latitude, naptan_stop.longitude]],
-                        join_opts).addTo(joiner);
+                    join_opts).addTo(joiner);
                 }
                 // Stops with a naptan:AtcoCode that doesn't appear in NaPTAN
                 else {
@@ -613,9 +611,8 @@ $(document).ready(function () {
 
     L.control.layers(base_layers, overlay_layers, {collapsed: false}).addTo(map);
 
-    //var hash = new L.Hash(map);
-    var all_layers = Object.assign({}, base_layers, overlay_layers);
-    var hash = new L.Hash(map, all_layers);
+    // var all_layers = Object.assign({}, base_layers, overlay_layers);
+    // var hash = new L.Hash(map, all_layers);
 
 
     L.rectangle([[52.0085564, -0.755235], [52.8346291, 0.63038]], {fill: false}).addTo(map);
