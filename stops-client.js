@@ -1,8 +1,10 @@
-// Javascript functions for the Bost Stop viewer
+// Javascript functions for the Bus Stop client
+
+/* eslint max-lines-per-function: ["warn", 1000], no-console: "off" */
 
 /*jslint browser: true */
 /*jshint esversion: 6 */
-/*global $, jQuery, L, format */
+/*global $, L, */
 
 $(document).ready(function () {
 
@@ -21,93 +23,93 @@ $(document).ready(function () {
         map = L.map('map');
 
 
-/*
-    var limit_warning = L.control({position: 'topright'});
-    limit_warning.onAdd = function () {
-        var div = L.DomUtil.create('div', 'info warning');
-        div.innerHTML = '<b>Too many points</b> - zoom in or filter';
-        return div;
-    };
-*/
+    /*
+        var limit_warning = L.control({position: 'topright'});
+        limit_warning.onAdd = function () {
+            var div = L.DomUtil.create('div', 'info warning');
+            div.innerHTML = '<b>Too many points</b> - zoom in or filter';
+            return div;
+        };
+    */
 
-/*
+    /*
 
-{
-  "0500CCITY055": {
-    "administrativeareacode": "071",
-    "altdescriptors": [
-      {
-        "commonname": "Churchill College",
+    {
+      "0500CCITY055": {
+        "administrativeareacode": "071",
+        "altdescriptors": [
+          {
+            "commonname": "Churchill College",
+            "commonnamelang": "en",
+            "creationdatetime": "2006-05-19 00:00:00+01",
+            "crossing": "",
+            "crossinglang": "",
+            "indicator": "",
+            "indicatorlang": "",
+            "landmark": "",
+            "landmarklang": "",
+            "modification": "new",
+            "modificationdatetime": "2007-03-12 00:00:00+00",
+            "revisionnumber": "",
+            "shortcommonnamelang": "",
+            "shortname": "",
+            "street": "",
+            "streetlang": ""
+          }
+        ],
+        "atcocode": "0500CCITY055",
+        "bearing": "E",
+        "busstoptype": "MKD",
+        "cleardowncode": null,
+        "commonname": "Storey's Way",
         "commonnamelang": "en",
-        "creationdatetime": "2006-05-19 00:00:00+01",
-        "crossing": "",
-        "crossinglang": "",
-        "indicator": "",
-        "indicatorlang": "",
-        "landmark": "",
-        "landmarklang": "",
-        "modification": "new",
-        "modificationdatetime": "2007-03-12 00:00:00+00",
-        "revisionnumber": "",
-        "shortcommonnamelang": "",
-        "shortname": "",
-        "street": "",
-        "streetlang": ""
+        "creationdatetime": "Sat, 01 Nov 2003 00:00:00 GMT",
+        "crossing": null,
+        "crossinglang": null,
+        "defaultwaittime": null,
+        "easting": 543908,
+        "grandparentlocalityname": null,
+        "gridtype": "U",
+        "indicator": "near",
+        "indicatorlang": "en",
+        "landmark": "Churchill College",
+        "landmarklang": "en",
+        "latitude": 52.2114061236,
+        "localitycentre": "0",
+        "localityname": "Cambridge",
+        "longitude": 0.10481260687,
+        "modification": "rev",
+        "modificationdatetime": "Wed, 02 Apr 2008 00:00:00 GMT",
+        "naptancode": "CMBDAGAP",
+        "northing": 259108,
+        "notes": null,
+        "noteslang": null,
+        "nptglocalitycode": "E0055326",
+        "parentlocalityname": null,
+        "pbcreationdatetime": "Sat, 01 Nov 2003 00:00:00 GMT",
+        "pbmodification": "rev",
+        "pbmodificationdatetime": "Wed, 02 Apr 2008 00:00:00 GMT",
+        "platecode": null,
+        "plusbuszonecode": "CAMBDGE",
+        "revisionnumber": 3,
+        "shortcommonname": "Storey's Way",
+        "shortcommonnamelang": "en",
+        "status": "act",
+        "stopareacodes": [
+          "050GCC054055"
+        ],
+        "stoptype": "BCT",
+        "street": "Madingley Road",
+        "streetlang": "en",
+        "suburb": null,
+        "suburblang": null,
+        "timingstatus": "TIP",
+        "town": null,
+        "townlang": null
       }
-    ],
-    "atcocode": "0500CCITY055",
-    "bearing": "E",
-    "busstoptype": "MKD",
-    "cleardowncode": null,
-    "commonname": "Storey's Way",
-    "commonnamelang": "en",
-    "creationdatetime": "Sat, 01 Nov 2003 00:00:00 GMT",
-    "crossing": null,
-    "crossinglang": null,
-    "defaultwaittime": null,
-    "easting": 543908,
-    "grandparentlocalityname": null,
-    "gridtype": "U",
-    "indicator": "near",
-    "indicatorlang": "en",
-    "landmark": "Churchill College",
-    "landmarklang": "en",
-    "latitude": 52.2114061236,
-    "localitycentre": "0",
-    "localityname": "Cambridge",
-    "longitude": 0.10481260687,
-    "modification": "rev",
-    "modificationdatetime": "Wed, 02 Apr 2008 00:00:00 GMT",
-    "naptancode": "CMBDAGAP",
-    "northing": 259108,
-    "notes": null,
-    "noteslang": null,
-    "nptglocalitycode": "E0055326",
-    "parentlocalityname": null,
-    "pbcreationdatetime": "Sat, 01 Nov 2003 00:00:00 GMT",
-    "pbmodification": "rev",
-    "pbmodificationdatetime": "Wed, 02 Apr 2008 00:00:00 GMT",
-    "platecode": null,
-    "plusbuszonecode": "CAMBDGE",
-    "revisionnumber": 3,
-    "shortcommonname": "Storey's Way",
-    "shortcommonnamelang": "en",
-    "status": "act",
-    "stopareacodes": [
-      "050GCC054055"
-    ],
-    "stoptype": "BCT",
-    "street": "Madingley Road",
-    "streetlang": "en",
-    "suburb": null,
-    "suburblang": null,
-    "timingstatus": "TIP",
-    "town": null,
-    "townlang": null
-  }
-}
+    }
 
-*/
+    */
 
     function load_naptan_busstops() {
 
@@ -138,19 +140,19 @@ $(document).ready(function () {
     function naptan_stop_as_text(stop) {
 
         var result = [];
-        var interesting = [ "administrativeareacode", "atcocode", "bearing", "busstoptype",
-                            "commonname", "crossing", 
-                            "indicator", "landmark", 
-                            "localityname", "naptancode", "notes", "nptglocalitycode",
-                            "plusbuszonecode", "shortcommonname", "status",
-                            "stopareacodes", "stoptype", "street", "timingstatus",
-                            "town"];
+        var interesting = ['administrativeareacode', 'atcocode', 'bearing', 'busstoptype',
+            'commonname', 'crossing',
+            'indicator', 'landmark',
+            'localityname', 'naptancode', 'notes', 'nptglocalitycode',
+            'plusbuszonecode', 'shortcommonname', 'status',
+            'stopareacodes', 'stoptype', 'street', 'timingstatus',
+            'town'];
 
         for (var i = 0; i < interesting.length; i++) {
             result.push(`<tr><th align="right">${interesting[i]}</th><td>${stop[interesting[i]]}</td></tr>`);
         }
-        var alt_interesting = ["commonname", "crossing", "indicator", "landmark", "shortname",
-                               "street"];
+        var alt_interesting = ['commonname', 'crossing', 'indicator', 'landmark', 'shortname',
+            'street'];
         for (var j = 0; j < stop.altdescriptors.length; j++) {
             var descriptor = stop.altdescriptors[j];
             for (var k = 0; k < alt_interesting.length; k++) {
@@ -158,95 +160,94 @@ $(document).ready(function () {
             }
         }
 
-        return ("<h1>NaPTAN</h1><table>" + result.join(" ") + "</table>");
+        return ('<h1>NaPTAN</h1><table>' + result.join(' ') + '</table>');
     }
 
 
-/*
+    /*
 
-Overpass query (all nodes with highway=bus_stop or naptan:AtcoCode in the bounding box,
-and all relations containing them with site=stop_area or public_transport=stop_area:
+    Overpass query (all nodes with highway=bus_stop or naptan:AtcoCode in the bounding box,
+    and all relations containing them with site=stop_area or public_transport=stop_area:
 
-[out:json][bbox:52.0085564,-0.755235,52.8346291,0.63038];
-(
-node [highway=bus_stop];
-node ["naptan:AtcoCode"];
-)->.stops;
-.stops out;
-(
-rel(bn.stops) [site=stop_area];
-rel(bn.stops) [public_transport=stop_area];
-);
-out;
+    [out:json][bbox:52.0085564,-0.755235,52.8346291,0.63038];
+    (
+    node [highway=bus_stop];
+    node ["naptan:AtcoCode"];
+    )->.stops;
+    .stops out;
+    (
+    rel(bn.stops) [site=stop_area];
+    rel(bn.stops) [public_transport=stop_area];
+    );
+    out;
 
-Result
+    Result
 
-{
-  "version": 0.6,
-  "generator": "Overpass API 0.7.54.12 054bb0bb",
-  "osm3s": {
-    "timestamp_osm_base": "2018-02-04T13:46:02Z",
-    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
-  },
-  "elements": [
     {
-      "type": "node",
-      "id": 288064983,
-      "lat": 52.2014247,
-      "lon": 0.1146675,
-      "tags": {
-        "bus": "yes",
-        "description": "Silver Street Eastbound.",
-        "highway": "bus_stop",
-        "name": "Queens' College",
-        "naptan:AtcoCode": "0500CCITY417",
-        "naptan:Bearing": "NE",
-        "naptan:CommonName": "Queens' College",
-        "naptan:Indicator": "near",
-        "naptan:Landmark": "Queens' College",
-        "naptan:NaptanCode": "cmbdgdjt",
-        "naptan:PlusbusZoneRef": "CAMBDGE",
-        "naptan:ShortCommonName": "Queens' College",
-        "naptan:Street": "Silver Street",
-        "naptan:verified": "no",
-        "note": "CMBDGDJT Silver Street Queen's College stop. Has a bus times display.",
-        "public_transport": "platform",
-        "ref": "1",
-        "shelter": "no",
-        "source": "naptan_import;survey",
-        "wheelchair": "yes"
-      }
-    },
-    {
-      "type": "relation",
-      "id": 256979,
-      "members": [
+      "version": 0.6,
+      "generator": "Overpass API 0.7.54.12 054bb0bb",
+      "osm3s": {
+        "timestamp_osm_base": "2018-02-04T13:46:02Z",
+        "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+      },
+      "elements": [
         {
           "type": "node",
-          "ref": 502322878,
-          "role": ""
+          "id": 288064983,
+          "lat": 52.2014247,
+          "lon": 0.1146675,
+          "tags": {
+            "bus": "yes",
+            "description": "Silver Street Eastbound.",
+            "highway": "bus_stop",
+            "name": "Queens' College",
+            "naptan:AtcoCode": "0500CCITY417",
+            "naptan:Bearing": "NE",
+            "naptan:CommonName": "Queens' College",
+            "naptan:Indicator": "near",
+            "naptan:Landmark": "Queens' College",
+            "naptan:NaptanCode": "cmbdgdjt",
+            "naptan:PlusbusZoneRef": "CAMBDGE",
+            "naptan:ShortCommonName": "Queens' College",
+            "naptan:Street": "Silver Street",
+            "naptan:verified": "no",
+            "note": "CMBDGDJT Silver Street Queen's College stop. Has a bus times display.",
+            "public_transport": "platform",
+            "ref": "1",
+            "shelter": "no",
+            "source": "naptan_import;survey",
+            "wheelchair": "yes"
+          }
         },
         {
-          "type": "node",
-          "ref": 502322879,
-          "role": ""
-        }
-      ],
-      "tags": {
-        "name": "Ermine Way",
-        "naptan:StopAreaCode": "270G00013051",
-        "naptan:StopAreaType": "GPBS",
-        "naptan:verified": "no",
-        "site": "stop_area",
-        "source": "naptan_import",
-        "type": "site"
-      }
-    },
-  ]
-}
+          "type": "relation",
+          "id": 256979,
+          "members": [
+            {
+              "type": "node",
+              "ref": 502322878,
+              "role": ""
+            },
+            {
+              "type": "node",
+              "ref": 502322879,
+              "role": ""
+            }
+          ],
+          "tags": {
+            "name": "Ermine Way",
+            "naptan:StopAreaCode": "270G00013051",
+            "naptan:StopAreaType": "GPBS",
+            "naptan:verified": "no",
+            "site": "stop_area",
+            "source": "naptan_import",
+            "type": "site"
+          }
+        },
+      ]
+    }
 
-
-*/
+    */
 
 
     function load_osm_busstops() {
@@ -267,12 +268,12 @@ Result
                 // loop over the retruned elements
                 for (var i = 0; i < elements.length; i++) {
                     // Nodes are all bus stops - push to osm_data ans osm_atco_index
-                    if (elements[i].type == 'node') {
+                    if (elements[i].type === 'node') {
                         osm_atco_index.push(elements[i].tags['naptan:AtcoCode']);
                         osm_data.push(elements[i]);
                     }
                     // Relations are stop areas - grab id->area_code mapping
-                    else if (elements[i].type == 'relation') {
+                    else if (elements[i].type === 'relation') {
                         var area_code = elements[i].tags['naptan:StopAreaCode'];
                         for (var j = 0; j < elements[i].members.length; j++) {
                             if (area_map.hasOwnProperty(elements[i].members[j].ref)) {
@@ -312,7 +313,7 @@ Result
     }
 
 
-    function osm_stop_as_text(stop,errors) {
+    function osm_stop_as_text(stop, errors) {
 
         var result = [];
         result.push('<table>');
@@ -323,15 +324,15 @@ Result
         }
         result.push('</table>');
         if (errors.length > 0) {
-           result.push('<ul>');
-           for (var i = 0; i < errors.length; i++) {
-               result.push('<li>' + errors[i] + '</li>');
-           }
-           result.push('</ul>');
+            result.push('<ul>');
+            for (var i = 0; i < errors.length; i++) {
+                result.push('<li>' + errors[i] + '</li>');
+            }
+            result.push('</ul>');
         }
-        return "<h1>OSM</h1>" +
+        return '<h1>OSM</h1>' +
                `<h2>Id: ${stop.id}</h2>` +
-               result.join(" ");
+               result.join(' ');
     }
 
     // Mapping tables between NaPTAN (via the API) keys and OSM tags
@@ -356,12 +357,12 @@ Result
     }
 
     var alt_naptan_to_osm = {
-        commonname: "naptan:AltCommonName",
-        crossing: "naptan:AltCrossing",
-        indicator: "naptan:AltIndicator",
-        landmark: "naptan:AltLandmark",
-        shortname: "naptan:AltShortname",
-        street: "naptan:AltStreet"
+        commonname: 'naptan:AltCommonName',
+        crossing: 'naptan:AltCrossing',
+        indicator: 'naptan:AltIndicator',
+        landmark: 'naptan:AltLandmark',
+        shortname: 'naptan:AltShortname',
+        street: 'naptan:AltStreet'
     };
     var alt_osm_to_naptan = {};
     for (var key2 in alt_naptan_to_osm) {
@@ -379,32 +380,32 @@ Result
         var results = [];
 
         // Checking for 'expected' top-level tags
-        var expected = ["naptan:AtcoCode", "naptan:Bearing", "naptan:CommonName", "naptan:Crossing",
-                        "naptan:Indicator", "naptan:Landmark", "naptan:NaptanCode", "naptan:PlusbusZoneRef",
-                        "naptan:Notes", "naptan:ShortCommonName", "Street"];
+        var expected = ['naptan:AtcoCode', 'naptan:Bearing', 'naptan:CommonName', 'naptan:Crossing',
+            'naptan:Indicator', 'naptan:Landmark', 'naptan:NaptanCode', 'naptan:PlusbusZoneRef',
+            'naptan:Notes', 'naptan:ShortCommonName', 'Street'];
         for (i = 0; i < expected.length; i++) {
             osm_tag = expected[i];
             naptan_key = osm_to_naptan[osm_tag];
             if (naptan[naptan_key] && ! osm[osm_tag]) {
-                results.push("Missing OSM tag '" + osm_tag + "', should be '" + visable_space(naptan[naptan_key]) + "'");
+                results.push('Missing OSM tag "' + osm_tag + '", should be "' + visable_space(naptan[naptan_key]) + '"');
             }
         }
 
         // Checking for expected naptan:BusStopType=CUS key
         if (naptan.busstoptype === 'CUS' && osm['naptan:BusStopType'] !== 'CUS') {
-            results.push("Missing OSM tag/value 'naptan:BusStopType=CUS'");
+            results.push('Missing OSM tag/value "naptan:BusStopType=CUS"');
         }
 
         // Checking alternate names
         for (i = 0; i < naptan.altdescriptors.length; i++) {
             descriptor = naptan.altdescriptors[i];
-            var alt_expected = ["naptan:AltCommonName", "naptan:AltCrossing", "naptan:AltIndicator",
-                                "naptan:AltLandmark", "naptan:AltShortname", "naptan:AltStreet"];
+            var alt_expected = ['naptan:AltCommonName', 'naptan:AltCrossing', 'naptan:AltIndicator',
+                'naptan:AltLandmark', 'naptan:AltShortname', 'naptan:AltStreet'];
             for (j = 0; j < alt_expected.length; j++) {
                 osm_tag = alt_expected[j];
                 naptan_key = alt_osm_to_naptan[osm_tag];
                 if (descriptor[naptan_key] && ! osm[osm_tag]) {
-                    results.push("Missing OSM tag '" + osm_tag + "', should be '" + visable_space(descriptor[naptan_key]) + "'");
+                    results.push('Missing OSM tag "' + osm_tag + '", should be "' + visable_space(descriptor[naptan_key]) + '"');
                 }
             }
         }
@@ -413,16 +414,16 @@ Result
         for (i = 0; i < naptan.stopareacodes.length; i++) {
             var code = naptan.stopareacodes[i];
             if (osm.stopareacode === undefined || osm.stopareacode.indexOf(code) === -1) {
-                results.push("Missing OSM StopAreaRelation for '" + code + "'");
+                results.push('Missing OSM StopAreaRelation for "' + code + '"');
             }
         }
 
 
         // Checking all OSM naptan: tags have a corresponding entry in NaPTAN
         for (osm_tag in osm) {
-            if (osm.hasOwnProperty(osm_tag) && osm_tag.startsWith("naptan:")) {
+            if (osm.hasOwnProperty(osm_tag) && osm_tag.startsWith('naptan:')) {
                 // Skip this becasue it isn't real
-                if (osm_tag === "naptan:verified") {
+                if (osm_tag === 'naptan:verified') {
                     continue;
                 }
                 // Is an 'Alt' key?
@@ -437,7 +438,7 @@ Result
                         }
                     }
                     if (! found) {
-                        results.push(osm_tag + " mismatched: OSM '" + osm[osm_tag] + "' not in NaPTAN");
+                        results.push(osm_tag + ' mismatched: OSM "' + osm[osm_tag] + '" not in NaPTAN');
                     }
 
                 }
@@ -446,12 +447,12 @@ Result
                     // Get it from the map and otherwise try to extract it
                     naptan_key = osm_to_naptan[osm_tag] || osm_tag.substring(7).toLowerCase();
                     if (! naptan[naptan_key]) {
-                        results.push(osm_tag + " mismatched: OSM '" + osm[osm_tag] + "' not in NaPTAN");
+                        results.push(osm_tag + ' mismatched: OSM "' + osm[osm_tag] + '" not in NaPTAN');
                     }
-                    else if (('' + osm[osm_tag]).toLowerCase() != ('' + naptan[naptan_key]).toLowerCase()) {
+                    else if (('' + osm[osm_tag]).toLowerCase() !== ('' + naptan[naptan_key]).toLowerCase()) {
                         //console.log(('' + osm[key]).toLowerCase(), ('' + naptan[naptan_key]).toLowerCase());
-                        results.push(osm_tag + " mismatched: OSM '" + visable_space(osm[osm_tag]) +
-                            "' != NaPTAN '" + visable_space(naptan[naptan_key]) + "'");
+                        results.push(osm_tag + ' mismatched: OSM "' + visable_space(osm[osm_tag]) +
+                            '" != NaPTAN "' + visable_space(naptan[naptan_key]) + '"');
                     }
                 }
             }
@@ -463,7 +464,7 @@ Result
 
     function visable_space(text) {
         // Convert ' ' into Unicode 'visable space' character
-        return ('' + text).replace(/ /g,'\u2423');
+        return ('' + text).replace(/ /g, '\u2423');
     }
 
 
@@ -474,7 +475,7 @@ Result
         var naptan_marker_opts = {
             radius: 5,
             weight: 1,
-            color: "red",
+            color: 'red',
             fill: true,
             stroke: true,
             fillOpacity: 0.8
@@ -483,17 +484,17 @@ Result
         var osm_marker_opts = {
             radius: 10,
             weight: 5,
-            color: "red",
+            color: 'red',
             fill: false,
             stroke: true,
             opacity: 0.8,
-            lineCap: "but"
+            lineCap: 'but'
         };
 
 
         var join_opts = {
             weight: 4,
-            color: "green",
+            color: 'green',
             fill: false,
             stroke: true,
             opacity: 0.8,
@@ -505,30 +506,29 @@ Result
         for (var id in naptan_data) {
             stop = naptan_data[id];
             //if (stop.status === 'act' &&
-             //   (stop.stoptype === 'BCT' || stop.stoptype == 'BCS' || stop.stoptype == 'BCQ' ||
-             //       stop.stoptype == 'BST' || stop.stoptype == 'BCE' || stop.stoptype == 'BCP')) {
+            //   (stop.stoptype === 'BCT' || stop.stoptype == 'BCS' || stop.stoptype == 'BCQ' ||
+            //       stop.stoptype == 'BST' || stop.stoptype == 'BCE' || stop.stoptype == 'BCP')) {
 
-                marker = L.circleMarker([stop.latitude, stop.longitude], naptan_marker_opts)
-                    .bindPopup(naptan_stop_as_text(stop));
+            marker = L.circleMarker([stop.latitude, stop.longitude], naptan_marker_opts)
+                .bindPopup(naptan_stop_as_text(stop));
 
-                // Inactive or 'wrong type' stops
-                if (stop.status != 'act' ||
-                    (stop.stoptype != 'BCT' && stop.stoptype != 'BCS' && stop.stoptype != 'BCQ' &&
-                     stop.stoptype != 'BST' && stop.stoptype != 'BCE' && stop.stoptype != 'BCP')) {
-                    marker.setStyle({color: 'black'})
-                        .addTo(naptan_not_a_bus_stop);
-                }
-                // Stops with an AtcoCode match in OSM
-                else if (osm_atco_index.indexOf(stop.atcocode) != -1) {
-                    marker.setStyle({color: 'green'})
-                        .addTo(naptan_matched);
-                }
-                // Everything else
-                else {
-                    marker.addTo(naptan_notmatched);
-                }
+            // Inactive or 'wrong type' stops
+            if (stop.status !== 'act' ||
+                (stop.stoptype !== 'BCT' && stop.stoptype !== 'BCS' && stop.stoptype !== 'BCQ' &&
+                 stop.stoptype !== 'BST' && stop.stoptype !== 'BCE' && stop.stoptype !== 'BCP')) {
+                marker.setStyle({color: 'black'})
+                    .addTo(naptan_not_a_bus_stop);
+            }
+            // Stops with an AtcoCode match in OSM
+            else if (osm_atco_index.indexOf(stop.atcocode) !== -1) {
+                marker.setStyle({color: 'green'})
+                    .addTo(naptan_matched);
+            }
+            // Everything else
+            else {
+                marker.addTo(naptan_notmatched);
+            }
 
-           //}
         }
 
         // Stops in OSM
@@ -547,7 +547,7 @@ Result
                         marker.setStyle({dashArray: '5,1'});
                     }
                     marker.setStyle({color: 'green'})
-                        .bindPopup(osm_stop_as_text(stop,errors))
+                        .bindPopup(osm_stop_as_text(stop, errors))
                         .addTo(osm_matched);
                     L.polyline([[stop.lat, stop.lon],
                         [naptan_stop.latitude, naptan_stop.longitude]],
@@ -555,14 +555,14 @@ Result
                 }
                 // Stops with a naptan:AtcoCode that doesn't appear in NaPTAN
                 else {
-                    marker.bindPopup(osm_stop_as_text(stop,[]))
+                    marker.bindPopup(osm_stop_as_text(stop, []))
                         .addTo(osm_notmatched);
                 }
             }
             // OSM stops with no naptan:AtcoCode
             else {
                 marker.setStyle({color: 'orange'})
-                    .bindPopup(osm_stop_as_text(stop,[]))
+                    .bindPopup(osm_stop_as_text(stop, []))
                     .addTo(osm_unmatchable);
             }
 
@@ -597,16 +597,19 @@ Result
         .addLayer(naptan_matched)
         .addLayer(naptan_notmatched);
 
-    var base_layers =    {'OSM:': osm,
-                          'Transport': transport,
-                          'University': university};
-    var overlay_layers = {'OSM matched': osm_matched,
-                          'OSM not matched': osm_notmatched,
-                          'OSM unmatchable': osm_unmatchable,
-                          'NaPTAN matched': naptan_matched,
-                          'NaPTAN not matched': naptan_notmatched,
-                          'NaPTAN not a bus stop': naptan_not_a_bus_stop,
-                          'Joins': joiner};
+    var base_layers = {
+        'OSM:': osm,
+        'Transport': transport,
+        'University': university
+    };
+    var overlay_layers = {
+        'OSM matched': osm_matched,
+        'OSM not matched': osm_notmatched,
+        'OSM unmatchable': osm_unmatchable,
+        'NaPTAN matched': naptan_matched,
+        'NaPTAN not matched': naptan_notmatched,
+        'NaPTAN not a bus stop': naptan_not_a_bus_stop,
+        'Joins': joiner};
 
     L.control.layers(base_layers, overlay_layers, {collapsed: false}).addTo(map);
 
@@ -615,7 +618,7 @@ Result
     var hash = new L.Hash(map, all_layers);
 
 
-    L.rectangle([[52.0085564,-0.755235],[52.8346291,0.63038]],{fill: false}).addTo(map);
+    L.rectangle([[52.0085564, -0.755235], [52.8346291, 0.63038]], {fill: false}).addTo(map);
 
     load_osm_busstops();
     load_naptan_busstops();
