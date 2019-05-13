@@ -137,19 +137,19 @@ $(document).ready(function () {
     function naptan_stop_as_text(stop) {
 
         var result = [];
-        var interesting = ['administrativeareacode', 'atcocode', 'bearing', 'busstoptype',
-            'commonname', 'crossing',
-            'indicator', 'landmark',
-            'localityname', 'naptancode', 'notes', 'nptglocalitycode',
-            'plusbuszonecode', 'shortcommonname', 'status',
-            'stopareacodes', 'stoptype', 'street', 'timingstatus',
-            'town'];
+        var interesting = ['AdministrativeAreaCode', 'ATCOCode', 'Bearing', 'BusStopType',
+            'CommonName', 'Crossing',
+            'Indicator', 'Landmark',
+            'LocalityName', 'NaptanCode', 'Notes', 'NptgLocalityCode',
+            'PlusbusZoneCode', 'ShortCommonName', 'Status',
+            'StopAreaCodes', 'StopType', 'Street', 'TimingStatus',
+            'Town'];
 
         for (var i = 0; i < interesting.length; i++) {
             result.push(`<tr><th align="right">${interesting[i]}</th><td>${stop[interesting[i]]}</td></tr>`);
         }
-        var alt_interesting = ['commonname', 'crossing', 'indicator', 'landmark', 'shortname',
-            'street'];
+        var alt_interesting = ['CommonName', 'Crossing', 'Indicator', 'Landmark', 'ShortName',
+            'Street'];
         for (var j = 0; j < stop.altdescriptors.length; j++) {
             var descriptor = stop.altdescriptors[j];
             for (var k = 0; k < alt_interesting.length; k++) {
@@ -334,17 +334,17 @@ $(document).ready(function () {
 
     // Mapping tables between NaPTAN (via the API) keys and OSM tags
     var naptan_to_osm = {
-        atcocode: 'naptan:AtcoCode',
-        bearing: 'naptan:Bearing',
-        commonname: 'naptan:CommonName',
-        crossing: 'naptan:Crossing',
-        indicator: 'naptan:Indicator',
-        landmark:  'naptan:Landmark',
-        naptancode: 'naptan:NaptanCode',
-        notes: 'naptan:Notes',
-        plusbuszonecode: 'naptan:PlusbusZoneRef',
-        shortcommonname: 'naptan:ShortCommonName',
-        street: 'naptan:Street',
+        ATCOCode: 'naptan:AtcoCode',
+        Bearing: 'naptan:Bearing',
+        CommonName: 'naptan:CommonName',
+        Crossing: 'naptan:Crossing',
+        Indicator: 'naptan:Indicator',
+        Landmark:  'naptan:Landmark',
+        NaptanCode: 'naptan:NaptanCode',
+        Notes: 'naptan:Notes',
+        PlusbusZoneCode: 'naptan:PlusbusZoneRef',
+        ShortCommonName: 'naptan:ShortCommonName',
+        Street: 'naptan:Street',
     };
     var osm_to_naptan = {};
     for (var key in naptan_to_osm) {
@@ -354,12 +354,12 @@ $(document).ready(function () {
     }
 
     var alt_naptan_to_osm = {
-        commonname: 'naptan:AltCommonName',
-        crossing: 'naptan:AltCrossing',
-        indicator: 'naptan:AltIndicator',
-        landmark: 'naptan:AltLandmark',
-        shortname: 'naptan:AltShortname',
-        street: 'naptan:AltStreet'
+        CommonName: 'naptan:AltCommonName',
+        Crossing: 'naptan:AltCrossing',
+        Indicator: 'naptan:AltIndicator',
+        Landmark: 'naptan:AltLandmark',
+        ShortName: 'naptan:AltShortname',
+        Street: 'naptan:AltStreet'
     };
     var alt_osm_to_naptan = {};
     for (var key2 in alt_naptan_to_osm) {
@@ -488,7 +488,6 @@ $(document).ready(function () {
             lineCap: 'but'
         };
 
-
         var join_opts = {
             weight: 4,
             color: 'green',
@@ -500,9 +499,8 @@ $(document).ready(function () {
         var stop, marker;
 
         // Stops in NaPTAN
-        for (var id in naptan_data) {
-            if (naptan_data.hasOwnProperty('id')) {
-                stop = naptan_data[id];
+        for (i=0; i < snaptan_data.length; ++i) {
+                stop = naptan_data[i];
                 //if (stop.status === 'act' &&
                 //   (stop.stoptype === 'BCT' || stop.stoptype == 'BCS' || stop.stoptype == 'BCQ' ||
                 //       stop.stoptype == 'BST' || stop.stoptype == 'BCE' || stop.stoptype == 'BCP')) {
