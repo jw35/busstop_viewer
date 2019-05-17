@@ -1,0 +1,46 @@
+https://wiki.openstreetmap.org/wiki/Tag:highway%3Dbus_stop
+https://wiki.openstreetmap.org/wiki/NaPTAN/Import
+https://wiki.openstreetmap.org/wiki/NaPTAN/Tag_mappings
+
+
+
+highway=bus_stop
+bus=yes
+public_transport=platform
+name=*
+ref=*
+local_ref=*
+shelter=*
+passenger_information_display=*
+bench=*
+bin=*
+
+naptan:verified=no deleted on verification
+source=naptan_import;survey
+
+Not physically present, not used
+
+   physically_present=no
+   [and remove highway=bus_stop]
+
+Not physically present, used
+
+   physically_present=no
+   highway=bus_stop
+
+NaPTAN mapping
+
+AlternativeDescriptors naptan:AltTYPE=* (and AlternativeDescriptors.CommonName -> alt_name)
+AtcoCode 	           naptan:AtcoCode=*
+Bearing                naptan:Bearing=*
+CommonName             naptan:CommonName=* name=*[1]
+Crossing               naptan:Crossing=*
+Indicator              naptan:Indicator=* (parsed value in local_ref=*[1])
+Landmark               naptan:Landmark=*
+NaptanCode             naptan:NaptanCode=* and ref=*[1]
+Notes                  naptan:Notes=*
+ShortCommonName        naptan:ShortCommonName=*
+Street                 naptan:Street=*
+Type                   nptan:BusStopType=*
+
+[1] Only when 'actively' converting the data
