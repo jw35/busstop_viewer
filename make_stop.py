@@ -51,6 +51,8 @@ for code in sys.argv[1:]:
     for (naptan_tag, osm_tag) in TAG_MAPPING:
         if naptan_tag in stop and stop[naptan_tag] is not None:
             tags.append('{}={}'.format(osm_tag, stop[naptan_tag]))
+    if 'BusStopType' in stop and stop['BusStopType'] == 'CUS':
+        tags.append('naptan:BusStopType=CUS')
 
     tags.append('highway=bus_stop')
     tags.append('bus=yes')
