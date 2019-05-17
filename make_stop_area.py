@@ -7,7 +7,7 @@ from xml.etree.ElementTree import Element, SubElement, Comment, tostring
 from xml.etree import ElementTree
 from xml.dom import minidom
 
-SOURCE = 'https://naptan.herokuapp.com/naptan.json'
+SOURCE = 'https://naptan.herokuapp.com/naptan/merged_stop_area.json'
 TARGET = 'http://localhost:8111/load_data'
 
 # Map NaPTAN column names to OSM tag names
@@ -27,7 +27,7 @@ if (len(sys.argv[1:]) == 0):
 for code in sys.argv[1:]:
 
     req_params = {
-        'sql': 'select * from StopAreas where StopAreaCode="{}";'.format(code),
+        'stopareacode': code,
         '_shape': 'array',
         }
 
@@ -35,21 +35,6 @@ for code in sys.argv[1:]:
     r.raise_for_status()
 
     stop = (r.json())[0]
-
-#<osm version="0.6" generator="CGImap 0.6.1 (9436 thorn-03.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
-#<relation id="291398" visible="true" version="2" changeset="3891683" timestamp="2010-02-16T12:52:48Z" user="Pink Duck" uid="91657">
-#<member type="node" ref="533796080" role=""/>
-#<member type="node" ref="533796095" role=""/>
-#<member type="node" ref="533796101" role=""/>
-#<tag k="name" v="Station Road"/>
-#<tag k="naptan:StopAreaCode" v="050GGS009020"/>
-#<tag k="naptan:StopAreaType" v="GCLS"/>
-#<tag k="naptan:verified" v="no"/>
-#<tag k="site" v="stop_area"/>
-#<tag k="source" v="naptan_import"/>
-#<tag k="type" v="site"/>
-#</relation>
-#</osm>
 
     osm = Element('osm')
     osm.set('version', '0.6')

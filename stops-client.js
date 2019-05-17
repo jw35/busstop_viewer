@@ -74,7 +74,7 @@ $(document).ready(function () {
             token = 0;
         }
 
-        var url = 'https://naptan.herokuapp.com/naptan/merged_stop_data.json' +
+        var url = 'https://naptan.herokuapp.com/naptan/merged_stops.json' +
             '?minlong=-0.755235&minlat=52.0085564' +
             '&maxlong=0.63038&maxlat=52.8346291' +
             '&_shape=array&token=' + token;

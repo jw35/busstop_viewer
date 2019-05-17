@@ -4,7 +4,7 @@ import sys
 import requests
 import os
 
-SOURCE = 'https://naptan.herokuapp.com/naptan.json'
+SOURCE = 'https://naptan.herokuapp.com/naptan/merged_stop.json'
 TARGET = 'http://localhost:8111/add_node'
 
 # Map NaPTAN column names to OSM tag names
@@ -38,7 +38,7 @@ if (len(sys.argv[1:]) == 0):
 for code in sys.argv[1:]:
 
     req_params = {
-        'sql': 'select * from StopAltZoneArea where AtcoCode="{}";'.format(code),
+        'atcocode': code,
         '_shape': 'array',
         }
 
