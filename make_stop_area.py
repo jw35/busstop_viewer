@@ -51,7 +51,7 @@ for code in sys.argv[1:]:
                 })
 
     SubElement(relation, 'tag', {'k': 'site', 'v': 'stop_area'})
-    SubElement(relation, 'tag', {'k': 'type', 'v': 'site'})
+    SubElement(relation, 'tag', {'k': 'type', 'v': 'public_transport'})
     SubElement(relation, 'tag', {'k': 'public_transport', 'v': 'stop_area'})
     SubElement(relation, 'tag', {'k': 'source', 'v': 'naptan;make_stoparea.py'})
 
